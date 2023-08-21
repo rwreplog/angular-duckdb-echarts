@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { ShellComponent } from './shell/shell.component';
+import { ChartComponent } from './chart/chart.component';
+
+const routes: Routes = [
+  { path: 'chart', component: ChartComponent },
+  { path: 'shell', component: ShellComponent },
+  { path: '', redirectTo: '/shell', pathMatch: 'full'}
+];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports:      [ BrowserModule, RouterModule.forRoot(routes) ],
+  declarations: [ AppComponent, ShellComponent, ChartComponent ],
+  bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
