@@ -12,11 +12,11 @@ export class ShellComponent {
   shellContainer!: ElementRef<HTMLDivElement>;
 
   constructor(private duckdbService: DuckDbService){
-
+    this.initializeShell();
   }
 
-  async ngOnInit(): Promise<void> {
-     const bg = await fetch(
+  private async initializeShell(): Promise<void> {
+    const bg = await fetch(
       `https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm-shell@latest/dist/shell_bg.wasm`
     );
 
@@ -24,7 +24,7 @@ export class ShellComponent {
       shellModule: bg.arrayBuffer(),
       container: this.shellContainer.nativeElement,
       resolveDatabase: async () => {
-        return await this.duckdbService.getDb();
+        return await this.duckdbService.getDatabase();
       },
     });
   }
