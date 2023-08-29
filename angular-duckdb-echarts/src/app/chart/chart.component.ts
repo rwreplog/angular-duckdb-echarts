@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
+import { ChartServiceService } from 'src/services/chart-service.service';
 
 @Component({
   selector: 'app-chart',
@@ -10,8 +11,14 @@ export class ChartComponent implements OnInit{
   chartInstance: echarts.EChartsType | null = null;
   chartOption: echarts.EChartsOption = {};
 
-  ngOnInit(): void {
+  constructor(private chartService: ChartServiceService){
+
+  }
+
+  async ngOnInit(): Promise<void> {
     this.initializeChartOption();
+    const data = await this.chartService.fetchData();
+    //console.log(data);
   }
 
   onChartInit(): void {
