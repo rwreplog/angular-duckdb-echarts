@@ -19,8 +19,6 @@ export class ChartComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     this.chartData = await this.chartService.fetchData();
     this.initializeChartOption(this.chartData);
-    console.log(this.chartData);
-    console.log([...new Set(this.chartData.map(x => x.category))]);
   }
 
   onChartInit(): void {
