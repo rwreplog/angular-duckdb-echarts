@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
-import { filter } from 'rxjs';
 import { ChartServiceService, JioMartData } from 'src/services/chart-service.service';
 
 @Component({
