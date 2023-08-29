@@ -7,6 +7,7 @@ export interface JioMartData {
   sub_category: string,
   items: string,
   price: number,
+  category_count: number,
 }
 
 @Injectable({
@@ -20,10 +21,12 @@ export class ChartServiceService {
     const sql = `
     select
         items.category
-      , items.sub_category
-      , items.items
-      , items.price
-     from items;`;
+      , ANY_VALUE(items.sub_category)
+      , ANY_VALUE(items.items)
+      , ANY_VALUE(items.price)
+      , nullif(count(items.category), 0) as category_count
+     from items
+     group by items.category;`;
 
     let result!: arrow.Table;
     for await (const conn of this.dbManager.open()) {
@@ -32,6 +35,7 @@ export class ChartServiceService {
         sub_category: arrow.Utf8;
         items: arrow.Utf8;
         price: arrow.Decimal;
+        category_count: arrow.Int;
       }>(sql);
     }
 

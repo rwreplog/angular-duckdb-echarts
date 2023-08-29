@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
-import { ChartServiceService } from 'src/services/chart-service.service';
+import { filter } from 'rxjs';
+import { ChartServiceService, JioMartData } from 'src/services/chart-service.service';
 
 @Component({
   selector: 'app-chart',
@@ -10,32 +11,33 @@ import { ChartServiceService } from 'src/services/chart-service.service';
 export class ChartComponent implements OnInit{
   chartInstance: echarts.EChartsType | null = null;
   chartOption: echarts.EChartsOption = {};
-
+  chartData: JioMartData[] = [];
   constructor(private chartService: ChartServiceService){
 
   }
 
   async ngOnInit(): Promise<void> {
-    this.initializeChartOption();
-    const data = await this.chartService.fetchData();
-    //console.log(data);
+    this.chartData = await this.chartService.fetchData();
+    this.initializeChartOption(this.chartData);
+    console.log(this.chartData);
+    console.log([...new Set(this.chartData.map(x => x.category))]);
   }
 
   onChartInit(): void {
   }
 
-  private initializeChartOption() {
+  private initializeChartOption(chartData: JioMartData[]) {
     this.chartOption = {
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: [...new Set(chartData.map(x => x.category))]
       },
       yAxis: {
         type: 'value'
       },
       series: [
         {
-          data: [120, 200, 150, 80, 70, 110, 130],
+          data: [...new Set(chartData.map(x => x.category_count))],
           type: 'bar'
         }
       ]
