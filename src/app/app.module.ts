@@ -10,7 +10,8 @@ import { ChartComponent } from './chart/chart.component';
 const routes: Routes = [
   { path: 'chart', component: ChartComponent },
   { path: 'shell', component: ShellComponent },
-  { path: '', redirectTo: '/shell', pathMatch: 'full'}
+  { path: '', redirectTo: '/landing', pathMatch: 'full'},
+  { path: 'landing', loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule) }
 ];
 
 @NgModule({
