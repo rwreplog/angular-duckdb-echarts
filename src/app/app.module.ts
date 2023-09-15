@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'chart', component: ChartComponent },
   { path: 'shell', component: ShellComponent },
   { path: '', redirectTo: '/landing', pathMatch: 'full'},
-  { path: 'landing', loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule) }
+  { path: 'landing', loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule) },
+  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) }
 ];
 
 @NgModule({
