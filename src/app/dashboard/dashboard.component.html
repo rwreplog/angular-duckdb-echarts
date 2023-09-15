@@ -1,1 +1,15 @@
-<p>dashboard works!</p>
+<p> Query <i>Execution Time: </i>{{chartService.queryExecutionTime | async}}</p>
+<button (click)="updateDashboard('Groceries')">Groceries</button>
+<button (click)="updateDashboard('Home & Kitchen')">Home & Kitchen</button>
+<button (click)="updateDashboard('Fashion')">Fashion</button>
+<button (click)="updateDashboard('Electronics')">Electronics</button>
+<button (click)="updateDashboard('Jewellery')">Jewellery</button>
+
+<ul>
+  <ng-template ngFor let-item [ngForOf]="dashboardData | async">
+    <li>{{item.category}}, {{item.items}}, {{item.price}}, {{item.sub_category}}
+  </ng-template>
+  <!-- <ng-template ngFor let-grocery [ngForOf]="groceries">
+    <li>{{grocery.category}}, {{grocery.items}}, {{grocery.price}}, {{grocery.sub_category}}
+  </ng-template> -->
+</ul>
