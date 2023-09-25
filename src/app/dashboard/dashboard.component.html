@@ -5,6 +5,7 @@
 <button (click)="updateDashboard('Electronics')">Electronics</button>
 <button (click)="updateDashboard('Jewellery')">Jewellery</button>
 
+<app-dashboard-chart [options]="options"></app-dashboard-chart>
 <ul>
   <ng-template ngFor let-item [ngForOf]="dashboardData | async">
     <li>{{item.category}}, {{item.items}}, {{item.price}}, {{item.sub_category}}
